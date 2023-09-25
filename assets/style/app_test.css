@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+  font-family: Urbanist, sans-serif;
+}
+body
+{
+  overflow: hidden;
+}
+.page_content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.offers_filters_content {
+  display: flex;
+  justify-content: space-between;
+}
+.filters_buttons {
+  display: flex;
+  gap: 16px;
+}
+.open_filters_btn {
+    --bs-bg-opacity : 1;
+    background-color: #0D6EFD;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: white;
+}
+.open_filters_btn:hover
+{
+    opacity: 0.9;
+    color: white;
+}
+.filters_lists_container
+{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 8px;
+  background: #ffffff;
+  box-shadow: 0 0 4px 4px #0000001c;
+  border-radius: 8px;
+  width: 224px;
+  z-index: 99;
+}
+.filter_save_buttons
+{
+  display: flex;
+  gap: 8px;
+}
+.pagination_container
+{
+  display: flex;
+  gap: 12px;
+}
+.page_number
+{
+  background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 20px;
+    text-decoration: none;
+}
+.offers_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: auto;
+  max-height: calc(100vh - 218px);
+}
+.offer_card {
+  display: flex;
+  gap: 20px;
+}
+.offer_image
+{
+  width: 170px;
+}
+.offer_card .card {
+  width: 100%;
+  cursor: pointer;
+}
+.offer_title
+{
+  font-size: 20px;
+}
+.reference_value
+{
+  color: gray;
+}
+
+
