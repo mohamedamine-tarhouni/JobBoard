@@ -33,6 +33,18 @@ body
     opacity: 0.9;
     color: white;
 }
+.order_option_btn {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px
+}
+
+.order_option_btn:hover {
+  background: #eef0f2
+}
 .filters_lists_container
 {
   position: absolute;
@@ -43,7 +55,7 @@ body
   background: #ffffff;
   box-shadow: 0 0 4px 4px #0000001c;
   border-radius: 8px;
-  width: 224px;
+  width: fit-content;
   z-index: 99;
 }
 .filter_save_buttons
@@ -55,11 +67,22 @@ body
 {
   display: flex;
   gap: 12px;
+  overflow: auto;
 }
-.page_number
+.loaded_page_number
 {
   background-color: #0d6efd;
     color: white;
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 20px;
+    text-decoration: none;
+}
+.page_number
+{
+  background-color: white;
+    color: #0d6efd;
     padding: 8px 16px;
     text-align: center;
     border-radius: 16px;
@@ -88,6 +111,8 @@ body
 .offer_title
 {
   font-size: 20px;
+  color: #0D6EFD;
+  font-weight: 500;
 }
 .reference_value
 {

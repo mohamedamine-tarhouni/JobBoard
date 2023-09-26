@@ -12,3 +12,7 @@ $sql_contracts = "SELECT * FROM contracts";
 $stmt_contracts = $mysql->prepare($sql_contracts);
 $stmt_contracts->execute();
 $contracts=$stmt_contracts->fetchAll(PDO::FETCH_ASSOC);
+$sql_enterprises = "SELECT * FROM enterprises";
+$stmt_enterprises = $mysql->prepare($sql_enterprises);
+$stmt_enterprises->execute();
+$enterprises=$stmt_enterprises->fetchAll(PDO::FETCH_ASSOC);

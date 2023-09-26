@@ -19,8 +19,13 @@ $(document).on("click", function (event) {
 $("body").on("click", ".open_filters_btn", (e) => {
   let show_content = $(e.currentTarget).attr("filter_data"),
     button_data = $(e.currentTarget).attr("btn_data");
-  $(".filter_save_buttons .btn").attr("filter_data", button_data);
-  $(".filter_save_buttons .btn").attr("div_data", show_content);
+  if (button_data != "Order") {
+    $(".filter_save_buttons").show();
+    $(".filter_save_buttons .btn").attr("filter_data", button_data);
+    $(".filter_save_buttons .btn").attr("div_data", show_content);
+  } else {
+    $(".filter_save_buttons").hide();
+  }
   $(".filters_content").hide();
   $(show_content).show();
   display_div_at_cursor($(".filters_lists_container"), e);
@@ -35,11 +40,31 @@ $("body").on("click", ".filter_save_buttons .apply_btn", (e) => {
         return $(this).attr("data_filter");
       })
       .get(),
-    fields = {"page":1};
+    fields = { page: 1 };
   console.log(applied_filters_array);
   console.log(filtered_element);
   fields[filtered_element] = applied_filters_array.join(",");
   update_filter_url(fields);
+  location.reload();
+});
+$("body").on("click", ".filter_save_buttons .default_btn", (e) => {
+  let filtered_element = $(e.currentTarget).attr("filter_data"),
+    filtered_element_div = $(e.currentTarget).attr("div_data"),
+    fields = { page: 1 };
+  $(filtered_element_div).find("input[type='checkbox']").prop("checked", false);
+  fields[filtered_element] = "";
+  update_filter_url(fields);
+  location.reload();
+});
+$("body").on("click", ".search_btn", (e) => {
+  let search_value = $("#search_input").val();
+  update_filter_url({ page: 1, Search: search_value });
+  location.reload();
+});
+$("body").on("click", ".order_option_btn", (e) => {
+  let filter_data = $(e.currentTarget).attr("data_order");
+  update_filter_url({ page: 1, Order: filter_data });
+  location.reload();
 });
 /*
 |----------------------------------------------------
