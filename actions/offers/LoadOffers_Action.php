@@ -23,7 +23,6 @@ $filters = [
     'searchFilter' => $searchFilter,
     'Order_by' => $Order_by,
 ];
-
 // Call the apply_filter function to generate the SQL query
 $offers = apply_filter($mysql,["offers.*","offers.id as offer_id", "enterprises.id","enterprises.enterprise_name", "cities.city", "contracts.contract_type", "jobs.job_type"], $filters, true, $perPage, $offset);
 $total_offers = apply_filter($mysql,["COUNT(*) AS Total"], $filters, false, $perPage, $offset);
@@ -42,12 +41,5 @@ $totalPages = ceil($total_offers / $perPage);
 //     echo "Enterprise: " . $offer['enterprise_name'] . "<br>";
 //     echo "--------------------------<br>";
 // }
-
-// Pagination links
-// You need to calculate the total number of offers for this to work
-// ...
-
-// Display pagination links
-// ...
 ?>
 

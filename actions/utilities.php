@@ -1,4 +1,5 @@
 <?php
+
 // *** FILTERS *** //
 function apply_filter($mysql, $rows, $filters, $limit = false, $perPage, $offset)
 {
@@ -106,24 +107,60 @@ function User_exists($data, $strdata)
     return $req_User_Exists;
 }
 // *** FUNCTIONS *** //
-function generateRandomString($length = 20) {
+function generateRandomString($length = 20)
+{
     // Define characters to use in the random string
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    
+
     // Calculate the number of characters in the character set
     $charLength = strlen($characters);
-    
+
     // Initialize the random string
     $randomString = '';
-    
+
     // Generate random bytes
     $bytes = random_bytes($length);
-    
+
     for ($i = 0; $i < $length; $i++) {
         // Get a random index from the bytes and use it to select a character
         $randomIndex = ord($bytes[$i]) % $charLength;
         $randomString .= $characters[$randomIndex];
     }
-    
+
     return $randomString;
+}
+function get_friendlyDate($converted_date)
+{
+    $date = DateTime::createFromFormat('d/m/Y à H:i', $converted_date);
+
+// Define arrays for translating month and day names into French
+$monthNames = [
+    '01' => 'janvier',
+    '02' => 'février',
+    '03' => 'mars',
+    '04' => 'avril',
+    '05' => 'mai',
+    '06' => 'juin',
+    '07' => 'juillet',
+    '08' => 'août',
+    '09' => 'septembre',
+    '10' => 'octobre',
+    '11' => 'novembre',
+    '12' => 'décembre',
+];
+
+$dayNames = [
+    'Sunday' => 'Dimanche',
+    'Monday' => 'Lundi',
+    'Tuesday' => 'Mardi',
+    'Wednesday' => 'Mercredi',
+    'Thursday' => 'Jeudi',
+    'Friday' => 'Vendredi',
+    'Saturday' => 'Samedi',
+];
+
+// Format the date and time to a friendly format
+$friendlyDate = $dayNames[$date->format('l')] . ' ' . $date->format('d') . ' ' . $monthNames[$date->format('m')] . ' ' . $date->format('Y') . ' à ' . $date->format('H:i');
+
+    return $friendlyDate;
 }

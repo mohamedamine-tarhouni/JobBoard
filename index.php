@@ -35,16 +35,18 @@ include 'actions/offers/LoadOffers_Action.php';
         <div class="offers_container">
             <div class="offers_list">
                 <?php foreach ($offers as $offer) { ?>
-                    <div class="offer_card">
-                        <img class="offer_image" src="https://imgs.search.brave.com/zoJ2QXmvBEnI3Zb5INvQx4NZ5vUC6yNyyQ8reiIM4m8/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9kMW5n/MWJ1Y2w3dzY2ay5j/bG91ZGZyb250Lm5l/dC9naG9zdC1ibG9n/LzIwMjAvMTEvcm9i/b3QuanBn" alt="">
+                    <div class="offer_card" offer_id="<?= $offer['offer_id'] ?>">
+                        <?php if (isset($offer['offer_image'])) { ?>
+                            <img class="offer_image" src="<?= $offer['offer_image'] ?>" alt="">
+                        <?php } ?>
                         <div class="card">
                             <div class="card-header">
                                 <span class="offer_title">
                                     <?php echo $offer['offer_title'] ?></span>
                                 <p class="reference_value">#<?= $offer['reference'] ?></p>
-                                <?php if($_SESSION["enterprise_id"] == $offer['enterprise_id']) {?>
-                                <a href="edit-offer.php?id=<?= $offer['offer_id']; ?>" class="btn btn-warning"> Modifier</a>
-                                <a href="actions/articles/deleteArticleAction.php?id=<?= $offer['offer_id']; ?>" class="btn btn-danger"> Supprimer</a>
+                                <?php if ($_SESSION["enterprise_id"] == $offer['enterprise_id']) { ?>
+                                    <a href="edit-offer.php?id=<?= $offer['offer_id']; ?>" class="btn btn-warning"> Modifier</a>
+                                    <a href="actions/articles/deleteArticleAction.php?id=<?= $offer['offer_id']; ?>" class="btn btn-danger"> Supprimer</a>
                                 <?php } ?>
                             </div>
                             <div class="card-body">
@@ -61,7 +63,7 @@ include 'actions/offers/LoadOffers_Action.php';
                                 </ul>
                             </div>
                             <div class="card-footer">
-                                Publié par <a href="profile.php?id=17"><?php echo $offer['enterprise_name'] ?></a> le 24/09/2023 à 14:16 </div>
+                                Publié par <a href="index.php?page=1&enterprise=<?= $offer['id']; ?>"><?php echo $offer['enterprise_name'] ?></a> <?= get_friendlyDate($offer['created_at']) ?> </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -76,6 +78,7 @@ include 'actions/offers/LoadOffers_Action.php';
                     'City' => $cityFilter,
                     'Search' => $searchFilter,
                     'Order' => $Order_by,
+                    'enterprise' => $enterpriseFilter
                 ]);
                 $pageLink = "index.php?page=$i";
                 if (!empty($filterQuery)) {
