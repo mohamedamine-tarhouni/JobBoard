@@ -89,12 +89,18 @@ body
     font-size: 20px;
     text-decoration: none;
 }
+.offers_container
+{
+  display: flex;
+  gap: 8px;
+}
 .offers_list {
   display: flex;
   flex-direction: column;
   gap: 20px;
   overflow: auto;
   max-height: calc(100vh - 218px);
+  width: 100%;
 }
 .offer_card {
   display: flex;

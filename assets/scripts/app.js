@@ -66,6 +66,75 @@ $("body").on("click", ".order_option_btn", (e) => {
   update_filter_url({ page: 1, Order: filter_data });
   location.reload();
 });
+$("body").on("click", ".offer_card.offer_btn", (e) => {
+  if (!$(e.target).closest(".btn").length && !$(e.target).closest("a").length) {
+    let offer_id = $(e.currentTarget).closest(".offer_card").attr("offer_id"),
+      offer_city = $(e.currentTarget).find(".city_value").text(),
+      offer_job = $(e.currentTarget).find(".job_value").text(),
+      offer_contract = $(e.currentTarget).find(".contract_value").text(),
+      offer_enterprise = $(e.currentTarget).find(".card-footer a").text();
+    console.log(offer_city);
+    $(".offer_details").show();
+    $(".offer_details").css("width", "100%");
+    $(".offers_list").css("width", "auto");
+    $.ajax({
+      credentials: "same-origin",
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+      url: "actions/Ajax/load_table_data.php",
+      method: "post",
+      data: {
+        tableName: "offers",
+        id: offer_id,
+      },
+      success: (result) => {
+        result = JSON.parse(result)[0];
+        console.log(result);
+        $(".offer_details .offer_title").html(result["offer_title"]);
+        $(".offer_details .reference_value").html("#" + result["reference"]);
+        $(".offer_details .desc_value").html(result["offer_description"]);
+        $(".offer_details .city_value").html(offer_city);
+        $(".offer_details .contract_value").html(offer_contract);
+        $(".offer_details .job_value").html(offer_job);
+        $(".offer_details .enterprise_profile_url")
+          .attr(
+            "href",
+            "index.php?page=1&enterprise=" + result["enterprise_id"]
+          )
+          .html(offer_enterprise);
+      },
+    });
+  }
+});
+$("body").on("click", ".offer_details", (e) => {
+  $(".offer_details").hide();
+  $(".offer_details").css("width", "auto");
+  $(".offers_list").css("width", "100%");
+});
+$("body").on("click", ".delete_offer", (e) => {
+  if (confirm("Voulez vous supprimer cette offre?")) {
+    let offer_id = $(e.currentTarget).attr("offer_id");
+    $(".offer_details").hide();
+    $(".offer_details").css("width", "auto");
+    $(".offers_list").css("width", "100%");
+    $.ajax({
+      credentials: "same-origin",
+      headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+      },
+      url: "actions/Ajax/delete_data.php",
+      method: "post",
+      data: {
+        tableName: "offers",
+        id: offer_id,
+      },
+      success: () => {
+        $(e.currentTarget).closest(".offer_card").remove();
+      },
+    });
+  }
+});
 /*
 |----------------------------------------------------
 | ****************** UTILITIES *********************

@@ -35,7 +35,7 @@ include 'actions/offers/LoadOffers_Action.php';
         <div class="offers_container">
             <div class="offers_list">
                 <?php foreach ($offers as $offer) { ?>
-                    <div class="offer_card" offer_id="<?= $offer['offer_id'] ?>">
+                    <div class="offer_card offer_btn" offer_id="<?= $offer['offer_id'] ?>">
                         <?php if (isset($offer['offer_image'])) { ?>
                             <img class="offer_image" src="<?= $offer['offer_image'] ?>" alt="">
                         <?php } ?>
@@ -46,20 +46,21 @@ include 'actions/offers/LoadOffers_Action.php';
                                 <p class="reference_value">#<?= $offer['reference'] ?></p>
                                 <?php if ($_SESSION["enterprise_id"] == $offer['enterprise_id']) { ?>
                                     <a href="edit-offer.php?id=<?= $offer['offer_id']; ?>" class="btn btn-warning"> Modifier</a>
-                                    <a href="actions/articles/deleteArticleAction.php?id=<?= $offer['offer_id']; ?>" class="btn btn-danger"> Supprimer</a>
+                                    <div class="btn btn-danger delete_offer" offer_id="<?= $offer['offer_id'] ?>"> Supprimer</div>
                                 <?php } ?>
                             </div>
                             <div class="card-body">
                                 <ul>
                                     <?php if (isset($offer['city'])) { ?>
-                                        <li><strong>Ville : </strong> <?php echo $offer['city'] ?></li>
+                                        <li><strong>Ville : </strong><span class="city_value"><?php echo $offer['city'] ?></span></li>
                                     <?php } ?>
                                     <?php if (isset($offer['job_type'])) { ?>
-                                        <li><strong>Métier : </strong> <?php echo $offer['job_type'] ?></li>
+                                        <li><strong>Métier : </strong><span class="job_value"> <?php echo $offer['job_type'] ?></span></li>
                                     <?php } ?>
                                     <?php if (isset($offer['contract_type'])) { ?>
-                                        <li><strong>Type de contrat : </strong> <?php echo $offer['contract_type'] ?></li>
+                                        <li><strong>Type de contrat : </strong> <span class="contract_value"><?php echo $offer['contract_type'] ?></span></li>
                                     <?php } ?>
+                                    <li class="offer_description"><strong>Description : </strong><?= strlen($offer['offer_description']) > 30 ? substr($offer['offer_description'], 0, 30) . ". . ." : $offer['offer_description'] ?></li>
                                 </ul>
                             </div>
                             <div class="card-footer">
@@ -68,7 +69,30 @@ include 'actions/offers/LoadOffers_Action.php';
                     </div>
                 <?php } ?>
             </div>
-            <div class="offer_details"></div>
+            <div class="offer_details" style="display: none;">
+                <div class="offer_card">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="offer_title"></span>
+                            <p class="reference_value"></p>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+
+                                <li><strong>Ville : </strong><span class="city_value"><?php echo $offer['city'] ?></span></li>
+
+                                <li><strong>Métier : </strong><span class="job_value"> <?php echo $offer['job_type'] ?></span></li>
+
+                                <li><strong>Type de contrat : </strong> <span class="contract_value"><?php echo $offer['contract_type'] ?></span></li>
+
+                                <li class="offer_description"><strong>Description : </strong><span class="desc_value"></span></li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            Publié par <a class="enterprise_profile_url" href=""></a></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="pagination_container">
             <?php for ($i = 1; $i <= $totalPages; $i++) {
